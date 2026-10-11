@@ -1,35 +1,55 @@
-<p align="center"><img src="logo.svg" width="96" alt="Laptop Lab logo"></p>
+<p align="center">
+  <img src="logo.svg" width="96" alt="Phone Lab logo">
+</p>
 
-# Laptop Lab
+<h1 align="center">Phone Lab</h1>
 
-An expedition-styled browser app that tests your laptop hardware. Nothing to install. Everything runs in your browser; only the network tests (speed, Wi-Fi stability and website checks) use the internet, and only when you press Start.
+<p align="center">
+  <a href="https://lokilancer.github.io/Phone-Lab/">
+    <img src="https://img.shields.io/badge/Try_it_live-Open_Phone_Lab-ff7a1a?style=for-the-badge" alt="Try Phone Lab live">
+  </a>
+</p>
+
+<p align="center">
+  Test your phone's hardware right in the browser. Built for Android, with iPhone support planned.<br>
+  Nothing to install. Everything runs on your phone; only the network checks use the internet, and only when you press Start.
+</p>
 
 ## Checks
-- **Display**: full-screen color fills for dead pixels and backlight, plus banding, ghosting, backlight-bleed and pixel-sharpness tests and screen info.
-- **Camera**: live preview with real resolution and frame rate.
-- **Microphone**: level meter with peak hold.
-- **Touchpad & mouse**: clicks, double clicks, scroll, pinch, input type and move events per second.
-- **Keyboard**: on-screen layout that marks every key you press, held keys and rollover. Works on built-in laptop keyboards.
-- **Speakers**: left, right and both-channel tones, pitch choice, a 100 Hz to 10 kHz sweep and output selection (Chrome/Edge).
-- **Battery**: charge level and charging state, plus a drain tracker that graphs the level over time and estimates hours left (Chrome, Edge, Opera).
-- **Touchscreen & pen** (optional): multi-finger drawing with pressure and tilt readout.
-- **Game controller** (optional): live buttons and sticks, plus a vibration test.
-- **Network speed**: latency, jitter, download and upload speed using Cloudflare's public speed-test servers (about 20 MB for the quick test, up to about 100 MB for the full test), plus a history of recent runs.
-- **Wi-Fi stability**: pings a server twice a second and graphs delay, lost replies and lag spikes. Walk around to find weak spots. (Browsers can't read Wi-Fi signal strength, so this measures real experience.)
-- **Website checks** (on the Network page): see whether common sites or any address you type respond, and how fast.
-- **Performance**: one-core and all-core CPU benchmark, parallel speedup and memory copy speed.
-- **System**: CPU threads, approximate memory, graphics, language, time zone, connection, browser storage, permission states and a test notification.
 
-A **guided run** walks you through every check in order. Checks that find a problem, such as a slow connection, unstable Wi-Fi or low battery, get an orange flag, and the report summarises what needs attention. Switch between the night map and a light **Day theme** from the sidebar. Each completed check earns a stamp on the Home page. The **Field report** page lists every result and can be downloaded as text or JSON, or printed. Results are saved in your browser only.
+- **Touch screen**: cover the screen to find dead zones, and test multi-touch.
+- **Display**: color fills for dead or stuck pixels and burn-in, a banding test, refresh-rate meter, color gamut and HDR detection.
+- **Cameras**: back and front camera, real resolution and frame rate, flashlight and zoom support, test photo.
+- **Microphone**: live level meter with peak hold.
+- **Speakers**: left, right and both tones, pitch choice and a 100 Hz to 10 kHz sweep.
+- **Vibration**: four patterns, and you confirm whether you felt them.
+- **Motion sensors**: accelerometer, gyroscope, total force and a shake counter.
+- **Compass & level**: heading dial and a spirit level.
+- **GPS location**: time to first fix and accuracy, plus live tracking. Coordinates are never saved or sent.
+- **Battery**: level, charging state, and measured charging speed or drain while the page is open.
+- **Network speed**: latency, jitter, download and upload using Cloudflare's speed servers.
+- **Connection stability**: live graph of delay, lost replies and lag spikes. Walk around to find weak signal.
+- **Bluetooth & NFC** (optional): find a Bluetooth device and read an NFC tag.
+- **System**: phone model, Android version, memory, graphics, storage limit, permissions and which features your browser supports.
 
-## Run
-Camera and microphone need HTTPS or localhost.
+A guided run walks through every check, orange flags mark problems, and the report can be shared from your phone's share sheet, downloaded or copied. There is a night and a day theme, and the app works offline after the first visit.
+
+## Run it
+
+Camera, microphone, sensors and location need HTTPS or localhost.
 
 ```bash
 python3 -m http.server 8000   # open http://localhost:8000
 ```
-Or deploy with GitHub Pages.
 
-Works offline after the first visit and can be installed as an app from Chrome or Edge. The Home page shows which checks your browser supports. Chrome and Edge support everything; Firefox and Safari lack battery info and output selection. Browsers can test hardware but can't change system settings such as brightness or key mappings.
+Or deploy with GitHub Pages. On Android, open it in Chrome and use **Add to home screen** to install it.
+
+## Browser support
+
+Chrome on Android supports everything. Other Android browsers support most checks. Battery, Bluetooth, NFC and vibration are limited to Chrome-based browsers. iPhone support is planned, because Safari limits sensors, vibration, battery and Bluetooth.
+
+## Privacy
+
+Camera, microphone, location and motion checks ask for permission and never record or upload anything. The only network use is the Network speed and Connection stability checks, which talk to Cloudflare's speed servers when you press Start.
 
 MIT License

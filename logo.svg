@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Laptop Lab logo">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Phone Lab logo">
   <rect width="64" height="64" rx="14" fill="#0a1d26"/>
-  <rect x="9" y="10" width="46" height="33" rx="5" fill="#10303a" stroke="#dff4f1" stroke-width="2.5"/>
-  <path d="M12 40 L25 24 L31.5 31.5 L40 21 L52 40 Z" fill="#1d4a57"/>
-  <path d="M36.5 25.5 L40 21 L43.5 25.5 L41 24.4 L40 26 L39 24.4 Z" fill="#dff4f1"/>
-  <path d="M40 9.5 L43.4 20 L40 18.2 L36.6 20 Z" fill="#ff7a1a"/>
-  <path d="M4 50 H60" stroke="#dff4f1" stroke-width="3.2" stroke-linecap="round"/>
-  <path d="M26 50 H38" stroke="#0a1d26" stroke-width="3.2" stroke-linecap="round"/>
+  <rect x="18.5" y="5.5" width="27" height="53" rx="6.5" fill="#10303a" stroke="#dff4f1" stroke-width="2.5"/>
+  <path d="M28 9.5 H36" stroke="#dff4f1" stroke-width="2" stroke-linecap="round"/>
+  <path d="M21 53 L28 38 L32 44 L37.5 33 L43 44 V53 Z" fill="#1d4a57"/>
+  <path d="M34.6 36.7 L37.5 33 L40.4 36.7 L38.3 35.8 L37.5 37.2 L36.7 35.8 Z" fill="#dff4f1"/>
+  <path d="M37.5 14.5 L40.8 30 L37.5 28 L34.2 30 Z" fill="#ff7a1a"/>
+  <path d="M29 55 H35" stroke="#dff4f1" stroke-width="2" stroke-linecap="round"/>
 </svg>
