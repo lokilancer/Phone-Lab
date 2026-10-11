@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a1d26">
+<script>try{if(localStorage.getItem("ll-theme")==="day")document.documentElement.dataset.theme="day"}catch(e){}</script>
+<title>Laptop Lab</title>
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="banner" role="status"><span>New: battery drain tracker, display quality tests, touchscreen and pen test, and a Day theme.</span><button id="bannerX" aria-label="Dismiss">×</button></div>
+<div class="shell">
+<aside>
+  <div class="brand"><img src="logo.svg" alt="" width="34" height="34">Laptop Lab<small>Field kit · v0.6</small></div>
+  <nav id="nav"></nav>
+  <nav class="bottom">
+    <button id="themeBtn" style="--c:#fbbf24"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg><span id="themeTxt">Day theme</span><i>›</i></button>
+    <button data-go="report" style="--c:#8fcf6b"><svg viewBox="0 0 24 24"><path d="M5 3h14v18H5zM9 8h6M9 12h6M9 16h4"/></svg>Field report<i>›</i></button>
+    <button data-go="docs" style="--c:#e9d8a6"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6zM14 3v4h4"/></svg>Docs<i>›</i></button>
+  </nav>
+</aside>
+<main>
+  <section data-page="home">
+    <div class="hero">
+      <div><h1>Ready your laptop.</h1><p class="sub">Run each check, collect its stamp, then export a field report of everything that passed. Nothing is installed. Everything runs in your browser; only the network tests use the internet, and only when you press Start.</p><div class="row"><button class="ghost" id="tourStart">Start guided run</button></div></div>
+      <svg class="compass" viewBox="0 0 160 160" aria-hidden="true"><circle cx="80" cy="80" r="74" fill="none" stroke="#1d4a57" stroke-width="2"/><circle cx="80" cy="80" r="58" fill="none" stroke="#e9d8a6" stroke-width="1" stroke-dasharray="2 6"/><text x="80" y="22">N</text><text x="80" y="146">S</text><text x="139" y="84">E</text><text x="21" y="84">W</text><g class="needle"><polygon points="80,30 90,80 80,73 70,80" fill="#ff7a1a"/><polygon points="80,130 90,80 80,87 70,80" fill="#dff4f1" opacity=".7"/></g><circle cx="80" cy="80" r="5" fill="#0a1d26" stroke="#e9d8a6"/></svg>
+    </div>
+    <div id="summit" class="devcard summit" hidden>
+      <svg class="flagart" viewBox="0 0 48 56" aria-hidden="true"><path d="M4 52 L20 24 L28 36 L36 18 L46 52 Z" fill="#1d4a57"/><path d="M36 18 V4" stroke="#e9d8a6" stroke-width="2.5" stroke-linecap="round"/><path class="flag" d="M36 4 L47 8.5 L36 13 Z" fill="#ff7a1a"/></svg>
+      <div><h2>Summit reached</h2><p class="hint" style="margin:0">Every available check is done. Save your field report before you head out.</p></div>
+      <button class="ghost" data-go="report">Open field report</button>
+    </div>
+    <div class="devcard">
+      <h2>Your checks</h2>
+      <div id="progText" class="hint">0 of 8 checks done</div><div class="prog"><div id="progBar"></div></div>
+      <div class="tiles" id="tiles"></div>
+      <h2 style="margin-top:22px">Browser support</h2><ul class="kv" id="compat"></ul>
+    </div>
+  </section>
+
+  <section data-page="display" hidden>
+    <h1>Display</h1><p class="sub">Fill the screen with solid colors to spot dead pixels, stuck pixels and uneven backlight. Click to change color, Esc to exit. View every fill and pattern (solid colors, gradient, checkerboard and grid) to earn the stamp.</p>
+    <div class="row"><button class="ghost" id="fsStart">Start screen test</button><button class="ghost" id="hzBtn">Measure refresh rate</button></div>
+    <p id="hz" class="hint" role="status"></p>
+    <h2 style="margin-top:22px">More display tests</h2>
+    <div class="row"><button class="ghost" data-fx="banding">Banding</button><button class="ghost" data-fx="ghost">Ghosting</button><button class="ghost" data-fx="bleed">Backlight bleed</button><button class="ghost" data-fx="sharp">Pixel sharpness</button></div>
+    <p class="hint">Banding: smooth gradients should have no visible steps. Ghosting: look for smeared trails behind the moving boxes, worst on the fastest rows. Backlight bleed: use a dark room and look for glowing edges on the black screen. Sharpness: the checkerboard should look an even grey, with no stripes or shimmer. Click or press Esc to exit each test.</p>
+    <ul class="kv" id="screenInfo"></ul>
+  </section>
+
+  <section data-page="camera" hidden>
+    <h1>Camera</h1><p class="sub">Preview your webcam and see the resolution and frame rate it actually delivers.</p>
+    <div class="row"><label>Quality <select id="camRes"><option value="">Automatic</option><option value="1080">1080p</option><option value="720">720p</option><option value="480">480p</option></select></label><label><input type="checkbox" id="camMirror"> Mirror</label><button class="ghost" id="camOn">Start camera</button><button class="ghost" id="camSnap" disabled>Take snapshot</button><button class="ghost" id="camOff" disabled>Stop</button></div>
+    <video id="cam" autoplay playsinline muted></video><ul class="kv" id="camInfo"></ul>
+  </section>
+
+  <section data-page="mic" hidden>
+    <h1>Microphone</h1><p class="sub">Speak and watch the level. Nothing is recorded. Get the peak above -40 dB to earn the stamp.</p>
+    <div class="row"><button class="ghost" id="micOn">Start microphone</button><button class="ghost" id="micOff" disabled>Stop</button><button class="ghost" id="micRec">Record 5 s and play back</button></div>
+    <div class="meter"><div id="meter"></div></div>
+    <audio id="micPlay" controls hidden></audio><ul class="kv" id="micInfo"></ul>
+  </section>
+
+  <section data-page="pointer" hidden>
+    <h1>Touchpad &amp; mouse</h1><p class="sub">Move, left-click, right-click and scroll inside the box to earn the stamp. Try two-finger scroll and pinch on your touchpad.</p>
+    <div id="pad">Use your touchpad or mouse here</div>
+    <ul class="kv" id="padInfo"></ul><button class="ghost" id="padReset">Reset counts</button>
+  </section>
+
+  <section data-page="keyboard" hidden>
+    <h1>Keyboard</h1><p class="sub">Press every key. Tested keys turn green, held keys turn orange. Works on your built-in laptop keyboard.</p>
+    <div class="stats"><div><b id="kbTested">0</b> keys tested</div><div><b id="kbHeld">0</b> held now</div><div><b id="kbMax">0</b> most at once</div><button class="ghost" id="kbReset">Reset</button></div>
+    <div class="scroll"><div id="kbd"></div></div><ul class="kv" id="kbLast"></ul>
+  </section>
+
+  <section data-page="touch" hidden>
+    <h1>Touchscreen &amp; pen</h1><p class="sub">Optional. Draw with one or more fingers or a pen. Fingers draw green, a pen draws orange, and a mouse draws tan. Touch the screen to earn the stamp.</p>
+    <div class="row"><button class="ghost" id="touchClear">Clear</button></div>
+    <canvas id="touchPad" class="graph" height="360" style="height:360px;touch-action:none" aria-label="Drawing area"></canvas>
+    <p id="touchNote" class="hint" role="status"></p><ul class="kv" id="touchInfo"></ul>
+  </section>
+
+  <section data-page="gamepad" hidden>
+    <h1>Game controller</h1><p class="sub">Optional. Connect a controller by USB or Bluetooth, then press any button to wake it up. Press a button to earn the stamp.</p>
+    <div class="row"><button class="ghost" id="rumble">Test vibration</button></div>
+    <ul class="kv" id="padList"><li>No controller detected yet.</li></ul>
+  </section>
+
+  <section data-page="speakers" hidden>
+    <h1>Speakers</h1><p class="sub">Play tones through the left channel, the right channel or both, or sweep the full range to hear rattles and distortion. Play left and right to earn the stamp.</p>
+    <div class="row"><label>Output <select id="spkOut"><option value="">System default</option></select></label><button class="ghost" id="spkList">Refresh outputs</button></div>
+    <div class="row">
+      <label>Tone <select id="freq"><option value="100">100 Hz (bass)</option><option value="440" selected>440 Hz</option><option value="1000">1 kHz</option><option value="5000">5 kHz (treble)</option></select></label>
+      <label>Volume <input type="range" id="vol" min="0" max="1" step=".05" value=".3"></label>
+    </div>
+    <div class="row"><button class="ghost" data-pan="-1">Left</button><button class="ghost" data-pan="0">Both</button><button class="ghost" data-pan="1">Right</button><button class="ghost" id="sweep">Sweep</button><button class="ghost" id="stopTone">Stop</button></div>
+    <p id="spkNote" class="hint" role="status"></p>
+  </section>
+
+  <section data-page="battery" hidden>
+    <h1>Battery</h1><p class="sub">Live charge level and charging state.</p><ul class="kv" id="batInfo"><li>Loading…</li></ul>
+    <h2 style="margin-top:22px">Drain tracker</h2><p class="hint">Keep this tab open while you work on battery power. It records the charge every 30 seconds and estimates how long the battery will last. Needs about 10 minutes of unplugged data.</p>
+    <div class="row"><button class="ghost" id="batStart">Start tracking</button><button class="ghost" id="batStop" disabled>Stop</button><button class="ghost" id="batClear">Clear data</button></div>
+    <div class="speed"><div><b id="bRate">–</b><span>% per hour</span></div><div><b id="bLeft">–</b><span>Hours left</span></div><div><b id="bSamples">0</b><span>Samples</span></div></div>
+    <canvas id="batGraph" class="graph" height="180" style="height:180px" aria-label="Battery level over time"></canvas>
+    <p id="batNote" class="hint" role="status"></p>
+  </section>
+
+  <section data-page="network" hidden>
+    <h1>Network speed</h1><p class="sub">Measures latency, download and upload speed using Cloudflare's public speed-test servers. It uses the internet only when you press Start. It sends random test data, never your files.</p>
+    <div class="row"><label>Test size <select id="netSize"><option value="quick">Quick (up to about 20 MB)</option><option value="full">Full (up to about 100 MB)</option></select></label><button class="ghost" id="netStart">Start test</button><button class="ghost" id="netStop" disabled>Stop</button></div>
+    <div class="speed"><div><b id="nDown">–</b><span>Download Mbps</span></div><div><b id="nUp">–</b><span>Upload Mbps</span></div><div><b id="nPing">–</b><span>Latency ms</span></div><div><b id="nJit">–</b><span>Jitter ms</span></div></div>
+    <div class="meter"><div id="netBar"></div></div>
+    <p id="netNote" class="hint" role="status">Press Start to begin. Speeds are approximate and depend on distance to the server and other devices on your network.</p>
+    <h2>Connection</h2><ul class="kv" id="netInfo"></ul>
+    <h2 style="margin-top:22px">Recent tests</h2><ul class="kv" id="netHist"></ul><button class="ghost" id="netClear">Clear history</button>
+    <h2 style="margin-top:22px">Can I reach…?</h2><p class="hint">Checks whether common websites respond and how fast. Each site is contacted once when you press a button.</p>
+    <div class="row"><button class="ghost" id="reachGo">Check common websites</button><input id="reachUrl" type="text" placeholder="Or type any address, e.g. example.com" aria-label="Website address"><button class="ghost" id="reachOne">Test</button></div>
+    <ul class="kv" id="reachList"></ul>
+  </section>
+
+  <section data-page="wifi" hidden>
+    <h1>Wi-Fi stability</h1><p class="sub">Pings a server about twice a second and graphs the delay. Carry your laptop around the house while it runs to see where the connection gets weak. Browsers can't read Wi-Fi signal strength, so this measures what you actually experience. It uses only a few kilobytes per minute.</p>
+    <div class="row"><label>Duration <select id="wfLen"><option value="30">30 seconds</option><option value="60" selected>1 minute</option><option value="180">3 minutes</option></select></label><button class="ghost" id="wfStart">Start</button><button class="ghost" id="wfStop" disabled>Stop</button></div>
+    <div class="speed"><div><b id="wAvg">–</b><span>Average ms</span></div><div><b id="wWorst">–</b><span>Worst ms</span></div><div><b id="wLoss">–</b><span>Lost %</span></div><div><b id="wSpk">–</b><span>Lag spikes</span></div></div>
+    <canvas id="wfGraph" height="200" class="graph" style="height:200px" aria-label="Delay over time"></canvas>
+    <p id="wfNote" class="hint" role="status">Press Start. A lower, flatter line is better. Red marks mean a reply never arrived.</p>
+  </section>
+
+  <section data-page="benchmark" hidden>
+    <h1>Performance</h1><p class="sub">A short benchmark of your processor and memory, about 5 seconds. Close other tabs for a fair result, and run it again on battery power to see the difference.</p>
+    <div class="row"><button class="ghost" id="benchStart">Run benchmark</button></div>
+    <ul class="kv" id="benchInfo"></ul>
+  </section>
+
+  <section data-page="system" hidden>
+    <h1>System</h1><p class="sub">What your browser can tell about this laptop: processor threads, memory, graphics and connection.</p>
+    <ul class="kv" id="sysInfo"></ul>
+    <div class="row"><button class="ghost" id="notifTest">Send test notification</button><span id="notifMsg" class="hint"></span></div>
+  </section>
+
+  <section data-page="report" hidden>
+    <h1>Field report</h1><p class="sub">Every check you've run, with its result. Results are kept in this browser until you clear them.</p>
+    <div class="row"><button class="ghost" id="repTxt">Download report</button><button class="ghost" id="repJson">Download JSON</button><button class="ghost" id="repCopy">Copy</button><button class="ghost" id="repPrint">Print</button><button class="ghost" id="repClear">Clear results</button></div>
+    <p id="repMsg" class="hint" role="status"></p>
+    <p id="repSum" class="status"></p>
+    <ul class="kv rep" id="repList"></ul>
+  </section>
+
+  <section data-page="docs" hidden class="doc">
+    <h1>Docs</h1>
+    <h3>What works where?</h3><p>Camera, microphone, keyboard and speakers work in all current browsers. Battery info and speaker selection need Chrome, Edge or Opera. Camera and microphone need HTTPS or localhost and your permission.</p>
+    <h3>How do stamps work?</h3><p>A stamp is awarded when a test shows real results, such as every screen fill viewed or both speaker channels played. Speaker and display stamps record that the test ran; you judge by eye and ear whether it looked and sounded right.</p>
+    <h3>Why does the drain tracker need the tab open?</h3><p>A web page can only read the battery while it is running. Keep the tab open, even in the background, and plug-in periods are shown in green on the graph. Data stays in this browser for up to six hours.</p>
+    <h3>What leaves my device?</h3><p>Nothing, except when you press Start on the Network speed test, the Wi-Fi stability test or the website checks. Those talk to Cloudflare's speed servers and to the websites you choose. Every other check runs entirely in your browser.</p>
+    <h3>Can I use it offline?</h3><p>Yes. Open it once over HTTPS or localhost and it caches itself. In Chrome or Edge you can also use the install icon in the address bar to add it as an app.</p>
+    <h3>Why can't I change settings?</h3><p>Browsers can read and test hardware but can't change system settings such as keys, brightness or power plans. Use Windows settings for those.</p>
+  </section>
+</main>
+</div>
+<div id="tour" hidden><span id="tourText"></span><button class="ghost" id="tourNext">Next check</button><button class="ghost" id="tourExit">Exit</button></div>
+<noscript><p style="padding:20px">Laptop Lab needs JavaScript.</p></noscript>
+<script src="app.js"></script>
+</body>
+</html>
