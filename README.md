@@ -48,6 +48,7 @@ Or deploy with GitHub Pages. On Android, open it in Chrome and use **Add to home
 
 Chrome on Android supports everything. Other Android browsers support most checks. Battery, Bluetooth, NFC and vibration are limited to Chrome-based browsers. iPhone support is planned, because Safari limits sensors, vibration, battery and Bluetooth.
 
+
 ## Privacy
 
 Camera, microphone, location and motion checks ask for permission and never record or upload anything. The only network use is the Network speed and Connection stability checks, which talk to Cloudflare's speed servers when you press Start.
