@@ -73,3 +73,34 @@ video{width:100%;max-height:60vh;background:#000;border-radius:14px;border:1px s
 #ttX{pointer-events:auto;width:44px;height:44px;border-radius:50%;border:0;background:#ff7a1a;color:#2a1100;font-size:1.2rem;font-weight:700}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 [data-theme=day] .tiles button svg{filter:saturate(1.3) brightness(.7)}
+
+/* SonicDock-inspired midnight workspace theme */
+:root{color-scheme:dark;--bg:#090d18;--pine:#0c1220;--contour:#263249;--ink:#eef2fa;--sand:#c4b7ff;--mute:#8996ae;--flare:#a18bff;--moss:#73d9b1;--bad:#ff7b83;--panel:rgba(17,24,39,.96);--padbg:#111a29;--okbg:#173d35;--nobg:#3b2630;--warnbg:#3b3150;--head:system-ui,"Segoe UI",sans-serif;--body:"Segoe UI",system-ui,sans-serif;--mono:ui-monospace,"Cascadia Mono",Consolas,monospace;--topo:none}
+body{background-color:var(--bg);background-image:radial-gradient(ellipse at 78% -12%,#6246d925,transparent 34%),radial-gradient(ellipse at 105% 52%,#147d9b18,transparent 30%);background-attachment:fixed}
+.top{background:rgba(12,18,32,.94);border-bottom:1px solid #1c293c;backdrop-filter:blur(16px);font-size:1.12rem;letter-spacing:-.3px}
+.top img{border-radius:11px;box-shadow:0 7px 24px #7c6bff3d}
+.icon{background:#151e31;border-color:#34405b;color:#c4b7ff}
+main{max-width:1040px}
+h1,h2,.doc h3{font-family:system-ui,"Segoe UI",sans-serif;letter-spacing:-.7px}
+h1{font-size:clamp(2rem,5vw,2.8rem);line-height:1.08}
+h2{font-size:1.2rem}
+.sub,.hint{color:#9aa7bd}
+.card,.status,.speed div{background:linear-gradient(145deg,#111a29,#101827);border-color:#29364d;border-radius:13px;box-shadow:0 10px 30px #03061120}
+.btn{border:1px solid #a391ff;background:linear-gradient(135deg,#927dff,#6b5bd1);color:#fff;border-radius:9px;box-shadow:0 6px 20px #7965e822;font-size:.92rem}
+.btn.ghost{background:#182337;color:#d4deee;border:1px solid #35445e;box-shadow:none}
+.btn.ghost:hover{border-color:#8272dc;background:#202641;color:#fff}
+select,input[type=text]{background:#182438;border-color:#39475f;color:#e9eff9;border-radius:9px}
+.tiles button{background:#111a29;border-color:#28364d;border-radius:11px;color:var(--ink);transition:.18s}
+.tiles button:hover{border-color:#7869bb;transform:translateY(-2px)}
+.tiles button.done{border-color:#367d68}
+.prog{background:#202a3c;border:1px solid #29364d}
+#progBar{background:linear-gradient(90deg,#6b5bd1,#a18bff);box-shadow:0 0 14px #a18bff66}
+.kv li{border-color:#26344a}
+.speed b{color:#b5a5ff}
+.meter{background:#111a29;border-color:#29364d}
+.meter div{background:linear-gradient(90deg,#73d9b1,#a18bff)}
+.graph{background:#111a29;border-color:#29364d}
+.tabs{background:rgba(12,18,32,.96);border-color:#263249;backdrop-filter:blur(16px)}
+.tabs button.active{color:#b5a5ff}
+#tour{background:#151e30;border-color:#7465c4}
+#ttX{background:#a18bff;color:#100d20}
